@@ -6,7 +6,7 @@
   ...
 }:
 let
-  jdk = pkgs.jdk23;
+  jdk = pkgs.graalvmPackages.graalvm-ce; # pkgs.jdk23;
   kotlin = pkgs.kotlin.override { jre = jdk; };
   gradle = pkgs.gradle.override { java = jdk; };
 in
