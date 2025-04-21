@@ -5,14 +5,17 @@
   system,
   ...
 }:
+let
+  jdk = pkgs.jdk23;
+  kotlin = pkgs.kotlin.override { jre = jdk; };
+  gradle = pkgs.gradle.override { java = jdk; };
+in
 mkShell {
-  packages = with pkgs; [
-    # nix stuff
-    nixfmt-rfc-style
-    deadnix
-    statix
-    # PatchELF is a simple utility for modifying existing ELF executables and libraries.
-    # patchelf
+  packages = [
+    jdk
+    kotlin
+    gradle
+    # ant
   ];
 
   inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
